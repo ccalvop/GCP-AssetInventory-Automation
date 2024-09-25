@@ -2,7 +2,7 @@
 
 This repository explains how to export GCP Asset Inventory data into BigQuery. The export can be done manually using `gcloud` commands in your terminal (SDK), which is part of the Google Cloud SDK. This SDK provides command-line tools to interact with Google Cloud services and must be installed and configured on your machine to execute the commands successfully. Alternatively, exports can be done automatically using **Cloud Scheduler** and the Asset Inventory API. This automation helps monitor and analyze assets in your GCP environment which can be useful for tracking resources across projects or organizations.
 
-## Manual Export with `gcloud` Command
+## Manual Export
 
 ### Step 1: Set the GCP Project
 
@@ -13,11 +13,11 @@ gcloud config set project PROJECT_ID
 
 ### Step 2: Execute the `gcloud` Asset Export
 
-You can export different asset types (such as resources, relationships, OS inventory) into a BigQuery table. Below are examples for different content types.
+Before exporting assets, ensure you have created a dataset in BigQuery where the data will be stored. The export process is based on the `gcloud asset export` command, which allows you to export different asset types into a specified BigQuery table. You can export various asset types, such as resources, relationships, and OS inventory. Below are examples for exporting different content types to your BigQuery dataset.
 
 #### Export Resources
 
-To export resources, you can use the following command for either an organization or a folder. It is important to specify --asset-types to filter the types of resources you want to export. If you do not specify `--asset-types`, all resources will be exported. For example, if you only want to export instances, you should specify it as follows:
+To export resources, you can use the following command for either an organization or a folder. It is important to specify `--asset-types` to filter the types of resources you want to export. If you do not specify `--asset-types`, all resources will be exported. For example, if you only want to export instances, you should specify it as follows:
 
 For Organization:
 ```bash
@@ -42,7 +42,7 @@ gcloud asset export \
 
 #### Export Relationships
 
-You can export relationships similarly, specifying the necessary parameters for the `gcloud` command.
+You can export relationships similarly:
 
 ```bash
 gcloud asset export \
@@ -55,7 +55,7 @@ gcloud asset export \
 
 #### Export OS Inventory
 
-Export OS inventory using the appropriate command, ensuring you have the correct parameters set.
+Export OS inventory using:
 
 ```bash
 gcloud asset export \
