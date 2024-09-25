@@ -128,7 +128,7 @@ To create a Cloud Scheduler job, you need to define the frequency of execution u
   - `User-Agent: Google-Cloud-Scheduler`
 
 - **Request Body**:
-  - Example for exporting organization-level resources.
+  - Example for exporting organization-level instance resources.
 ```json
 {
   "parent": "organizations/ORGANIZATION_ID",
@@ -147,7 +147,7 @@ To create a Cloud Scheduler job, you need to define the frequency of execution u
 }
 ```
 
-  - Example for exporting folder-level resources.
+  - Example for exporting folder-level instance resources.
 ```json
 {
   "parent": "folders/FOLDER_ID",
@@ -166,18 +166,12 @@ To create a Cloud Scheduler job, you need to define the frequency of execution u
 }
 ```
 
-### Step 5: Authorization
+- **Authorization**:
 
 Add the OAuth token to authenticate the requests. Use the service account created earlier.
 
-- **Auth Header**: Add OAuth token
-- **Scope**: `https://www.googleapis.com/auth/cloud-platform`
-
-### Step 6: Cloud Scheduler Pricing
-
-Cloud Scheduler allows up to 3 jobs for free, with unlimited executions of those jobs.
-
-***
+  - Auth Header: `Add OAuth token`
+  - Scope: `https://www.googleapis.com/auth/cloud-platform`
 
 ## Final Notes
 
@@ -187,4 +181,3 @@ Cloud Scheduler allows up to 3 jobs for free, with unlimited executions of those
 ## Useful Links
 
 - [GCP Asset Inventory Documentation](https://cloud.google.com/asset-inventory/docs)
-- [Cloud Scheduler Pricing](https://cloud.google.com/scheduler/pricing)
