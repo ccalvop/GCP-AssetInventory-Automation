@@ -1,2 +1,187 @@
-# GCP-AssetInventory-Automation
-GCP-AssetInventory-Automation
+# GCP Asset Inventory Automation
+
+This repository explains how to export GCP Asset Inventory data into BigQuery. The export can be done manually using `gcloud` commands or automatically using Cloud Scheduler and the Asset Inventory API. This helps monitor and analyze assets in your GCP environment, which can be useful for tracking resources across projects or organizations.
+
+## Manual Export with `gcloud` Command
+
+### Step 1: Set the GCP Project
+
+First, set the project where you want to run the export. Replace `PROJECT_ID` with your project ID.
+
+### Step 2: Execute the `gcloud` Asset Export
+
+You can export different asset types (such as resources, relationships, OS inventory) into a BigQuery table. Below are examples for different content types.
+
+#### Export Resources
+
+To export resources, you can use the following command for either an organization or a folder. It is important to specify --asset-types to filter the types of resources you want to export. If you do not specify `--asset-types`, all resources will be exported. For example, if you only want to export instances, you should specify it as follows:
+
+For Organization:
+```bash
+gcloud asset export \
+  --organization=ORGANIZATION_ID \
+  --billing-project=PROJECT_ID \
+  --content-type=resource \
+  --bigquery-table=projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID \
+  --asset-types="compute.googleapis.com/Instance" \
+  --output-bigquery-force
+```
+For Folder:
+```bash
+gcloud asset export \
+  --folder=FOLDER_ID \
+  --billing-project=PROJECT_ID \
+  --content-type=resource \
+  --bigquery-table=projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID \
+  --asset-types="compute.googleapis.com/Instance" \
+  --output-bigquery-force
+```
+
+#### Export Relationships
+
+You can export relationships similarly, specifying the necessary parameters for the `gcloud` command.
+
+```bash
+gcloud asset export \
+  --organization=ORGANIZATION_ID \
+  --billing-project=PROJECT_ID \
+  --content-type=relationship \
+  --bigquery-table=projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID \
+  --output-bigquery-force
+```
+
+#### Export OS Inventory
+
+Export OS inventory using the appropriate command, ensuring you have the correct parameters set.
+
+```bash
+gcloud asset export \
+  --organization=ORGANIZATION_ID \
+  --billing-project=PROJECT_ID \
+  --content-type=os-inventory \
+  --bigquery-table=projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID \
+  --output-bigquery-force
+```
+
+### Step 3: Partitioned Exports (Optional)
+
+If you want to partition your exports by time, you can add the `--partition-key=request-time` flag.
+
+```bash
+gcloud asset export \
+  --organization=ORGANIZATION_ID \
+  --billing-project=PROJECT_ID \
+  --content-type=resource \
+  --bigquery-table=projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID \
+  --partition-key=request-time \
+  --per-asset-type \
+  --output-bigquery-force
+```
+
+***
+
+## Automating the Export with Cloud Scheduler
+
+To automate the export process, you can use Cloud Scheduler to send periodic requests to the Asset Inventory API.
+
+### Step 1: Create a Service Account
+
+Create a service account to manage the Cloud Scheduler job and assign it the necessary roles.
+
+#### Permissions for the Service Account
+
+Assign the following roles to the service account:
+- **Organization Level**:
+  - `Cloud Asset Viewer`
+  - `Organization Viewer`
+- **Project Level**:
+  - `BigQuery Data Editor`
+  - `BigQuery User`
+
+### Step 2: Enable the Asset Inventory API
+
+Enable the Asset Inventory API in the project where the Cloud Scheduler job will run.
+
+### Step 3: Set Up BigQuery
+
+Create a BigQuery dataset to store the exported data.
+
+### Step 4: Create a Cloud Scheduler Job
+
+Set up a Cloud Scheduler job to make HTTP requests to the Asset Inventory API. Cloud Scheduler allows you to schedule virtually any job, such as executing HTTP requests or calling Cloud Pub/Sub. This is particularly useful for automating the export of asset data, ensuring that the data is updated at regular intervals without manual intervention.
+
+To create a Cloud Scheduler job, you need to define the frequency of execution using a cron-style schedule. For example, you might use a schedule like `*/15 7-20 * * *` to run the job every 15 minutes between 7 AM and 8 PM. This flexibility allows you to customize how often the export occurs based on your needs.
+
+#### Example Cloud Scheduler Job Configuration
+
+- **Job Name**: asset-inventory-export
+- **Target Type**: HTTP
+- **URL**:
+  - For organization-level export: `https://cloudasset.googleapis.com/v1/organizations/ORGANIZATION_ID:exportAssets`
+  - For folder-level export: `https://cloudasset.googleapis.com/v1/folders/FOLDER_ID:exportAssets`
+
+- **HTTP Headers**:
+  - `Content-Type: application/json`
+  - `User-Agent: Google-Cloud-Scheduler`
+
+- **Request Body**:
+  - Example for exporting organization-level resources.
+```json
+{
+  "parent": "organizations/ORGANIZATION_ID",
+  "contentType": "RESOURCE",
+  "outputConfig": {
+    "bigqueryDestination": {
+      "dataset": "projects/PROJECT_ID/datasets/DATASET_ID",
+      "table": "TABLE_NAME",
+      "force": true,
+      "separateTablesPerAssetType": true
+    }
+  },
+  "assetTypes": [
+    "compute.googleapis.com/Instance"
+  ]
+}
+```
+
+  - Example for exporting folder-level resources.
+```json
+{
+  "parent": "folders/FOLDER_ID",
+  "contentType": "RESOURCE",
+  "outputConfig": {
+    "bigqueryDestination": {
+      "dataset": "projects/PROJECT_ID/datasets/DATASET_ID",
+      "table": "TABLE_NAME",
+      "force": true,
+      "separateTablesPerAssetType": true
+    }
+  },
+  "assetTypes": [
+    "compute.googleapis.com/Instance"
+  ]
+}
+```
+
+### Step 5: Authorization
+
+Add the OAuth token to authenticate the requests. Use the service account created earlier.
+
+- **Auth Header**: Add OAuth token
+- **Scope**: `https://www.googleapis.com/auth/cloud-platform`
+
+### Step 6: Cloud Scheduler Pricing
+
+Cloud Scheduler allows up to 3 jobs for free, with unlimited executions of those jobs.
+
+***
+
+## Final Notes
+
+- The exports are customizable. You can define specific asset types to focus on particular resources or export everything.
+- Manual vs Automated: Use `gcloud` for one-time exports or Cloud Scheduler for regular automated exports.
+
+## Useful Links
+
+- [GCP Asset Inventory Documentation](https://cloud.google.com/asset-inventory/docs)
+- [Cloud Scheduler Pricing](https://cloud.google.com/scheduler/pricing)
