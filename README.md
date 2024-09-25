@@ -97,7 +97,7 @@ To automate the export process, you can use **Cloud Scheduler** to send periodic
 
 The Asset Inventory API allows you to manage and monitor all the resources in your Google Cloud Platform environment. Specifically, it enables you to export asset metadata, providing a comprehensive view of your GCP resources. By leveraging Cloud Scheduler with the Asset Inventory API, you can eliminate the need for manual command execution, allowing you to schedule regular exports at specified intervals. This integration ensures that your asset data is up-to-date.
 
-<img src="https://github.com/user-attachments/assets/943b557a-dee8-4202-a98a-70c436f0720c" alt="asset1" width="600"/>
+<img src="https://github.com/user-attachments/assets/943b557a-dee8-4202-a98a-70c436f0720c" alt="asset1" width="800"/>
 
 ### Step 1: Create a Service Account
 
