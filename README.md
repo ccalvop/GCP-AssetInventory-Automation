@@ -83,9 +83,9 @@ gcloud asset export \
 
 ***
 
-## Automating the Export with Cloud Scheduler
+### Automating the Export with Cloud Scheduler
 
-To automate the export process, you can use Cloud Scheduler to send periodic requests to the Asset Inventory API.
+To automate the export process, you can use **Cloud Scheduler** to send periodic requests to the **Asset Inventory API**. The Asset Inventory API allows you to manage and monitor all the resources in your Google Cloud Platform environment. Specifically, it enables you to export asset metadata, providing a comprehensive view of your GCP resources. By leveraging Cloud Scheduler with the Asset Inventory API, you can eliminate the need for manual command execution, allowing you to schedule regular exports at specified intervals. This integration ensures that your asset data is up-to-date.
 
 ### Step 1: Create a Service Account
 
