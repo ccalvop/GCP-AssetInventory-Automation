@@ -173,6 +173,8 @@ Add the OAuth token to authenticate the requests. Use the service account create
   - Auth Header: `Add OAuth token`
   - Scope: `https://www.googleapis.com/auth/cloud-platform`
 
+***
+
 ## Final Notes
 
 - The exports are customizable. You can define specific asset types to focus on particular resources or export everything.
