@@ -1,12 +1,15 @@
 # GCP Asset Inventory Automation
 
-This repository explains how to export GCP Asset Inventory data into BigQuery. The export can be done manually using `gcloud` commands or automatically using Cloud Scheduler and the Asset Inventory API. This helps monitor and analyze assets in your GCP environment, which can be useful for tracking resources across projects or organizations.
+This repository explains how to export GCP Asset Inventory data into BigQuery. The export can be done manually using `gcloud` commands in your terminal (SDK), which is part of the Google Cloud SDK. This SDK provides command-line tools to interact with Google Cloud services and must be installed and configured on your machine to execute the commands successfully. Alternatively, exports can be done automatically using **Cloud Scheduler** and the Asset Inventory API. This automation helps monitor and analyze assets in your GCP environment which can be useful for tracking resources across projects or organizations.
 
 ## Manual Export with `gcloud` Command
 
 ### Step 1: Set the GCP Project
 
 First, set the project where you want to run the export. Replace `PROJECT_ID` with your project ID.
+```bash
+gcloud config set project PROJECT_ID
+```
 
 ### Step 2: Execute the `gcloud` Asset Export
 
