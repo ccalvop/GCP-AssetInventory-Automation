@@ -91,7 +91,7 @@ gcloud asset export \
 
 ***
 
-### Automating the Export with Cloud Scheduler
+## Automating the Export with Cloud Scheduler
 
 To automate the export process, you can use **Cloud Scheduler** to send periodic requests to the **Asset Inventory API**. 
 
@@ -191,7 +191,3 @@ Add the OAuth token to authenticate the requests. Use the service account create
 
 - The exports are customizable. You can define specific asset types to focus on particular resources or export everything.
 - Manual vs Automated: Use `gcloud` for one-time exports or Cloud Scheduler for regular automated exports.
-
-## Useful Links
-
-- [GCP Asset Inventory Documentation](https://cloud.google.com/asset-inventory/docs)
