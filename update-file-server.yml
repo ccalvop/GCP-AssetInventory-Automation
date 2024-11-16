@@ -1,0 +1,23 @@
+Conexión al Servidor:
+- Nombre de Host: servidor-ubuntu
+- Usuario SSH: ccalvop
+- Contraseña SSH: ********
+- Comando SSH: `ssh ubuntu@ip`; `tmux new -s x_session`
+
+Actualizaciones del Repositorio:
+- Ruta del Repositorio: /@repositorio
+- Comando Git Pull: `git pull origin master`
+
+Modificaciones de Código:
+- Archivo Modificado: README.md
+- Línea 23: Se cambió la variable `port` a 8080
+- Línea 42: Se agregó una nueva función para la autenticación
+
+Seguridad Adicional:
+- Firewall Configurado: UFW
+- Regla de Firewall: Permitir el tráfico SSH en el puerto 22
+
+Copia de Seguridad:
+- Ruta de Copia de Seguridad: /@repositorio
+- Comando de Copia de Seguridad: `tar -czvf copia-seguridad.tar.gz /@repositorio`
+TIME - 2024-11-13 15:33:55
