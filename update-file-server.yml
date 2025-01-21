@@ -21,4 +21,3 @@ Copia de Seguridad:
 - Ruta de Copia de Seguridad: /@repositorio
 - Comando de Copia de Seguridad: `tar -czvf copia-seguridad.tar.gz /@repositorio`
 TIME - 2024-11-13 15:33:55
-TIME - 2025-01-21 09:55:37
