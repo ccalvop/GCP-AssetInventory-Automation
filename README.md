@@ -140,7 +140,8 @@ To create a Cloud Scheduler job, you need to define the frequency of execution u
   - `User-Agent: Google-Cloud-Scheduler`
 
 - **Request Body**:
-  -- Example for exporting organization-level instance resources.
+
+  - Example for exporting organization-level instance resources.
 ```json
 {
   "parent": "organizations/ORGANIZATION_ID",
@@ -159,7 +160,7 @@ To create a Cloud Scheduler job, you need to define the frequency of execution u
 }
 ```
 
-  -- Example for exporting folder-level instance resources.
+  - Example for exporting folder-level instance resources.
 ```json
 {
   "parent": "folders/FOLDER_ID",
