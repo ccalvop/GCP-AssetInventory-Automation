@@ -186,6 +186,8 @@ Add the OAuth token to authenticate the requests. Use the service account create
   - Auth Header: `Add OAuth token`
   - Scope: `https://www.googleapis.com/auth/cloud-platform`
 
+***
+
 ## BigQuery Export Results and Asset Inventory Tables
 
 After setting up the automated export, BigQuery provides a comprehensive view of all your GCP assets. The export process creates individual tables for each asset type in your GCP environment, making it easier to query and analyze your infrastructure.
@@ -297,11 +299,10 @@ all-asset-export_gkebackup_googleapis_com_VolumeBackup
 all-asset-export_iam_googleapis_com_Role
 all-asset-export_iam_googleapis
 ```
+
 ***
 
 ## Final Notes
 
 - The exports are customizable. You can define specific asset types to focus on particular resources or export everything.
 - Manual vs Automated: Use `gcloud` for one-time exports or Cloud Scheduler for regular automated exports.
-
-TIME - 2024-11-13 15:34:06
