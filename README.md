@@ -306,3 +306,5 @@ all-asset-export_iam_googleapis
 
 - The exports are customizable. You can define specific asset types to focus on particular resources or export everything.
 - Manual vs Automated: Use `gcloud` for one-time exports or Cloud Scheduler for regular automated exports.
+
+TIME - 2025-02-14 16:59:08
