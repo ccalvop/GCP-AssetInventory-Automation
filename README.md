@@ -321,3 +321,5 @@ This integration facilitates real-time access to asset inventory data, enhancing
 
 - The exports are customizable. You can define specific asset types to focus on particular resources or export everything.
 - Manual vs Automated: Use `gcloud` for one-time exports or Cloud Scheduler for regular automated exports.
+
+TIME - 2025-12-07 21:19:07
